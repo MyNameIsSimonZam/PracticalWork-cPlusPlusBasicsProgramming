@@ -1,0 +1,50 @@
+# Visual Studio временные файлы и каталоги
+
+test.txt
+
+.vs/
+*.vsidx
+*.db
+*.vscode/
+*.suo
+*.user
+*.cache
+*.pdb
+*.obj
+*.exe
+*.idb
+*.ilk
+*.log
+*.aps
+*.ncb
+*.sdf
+*.ipch
+*.tlog
+*.VC.db
+*.VC.opendb
+
+# Скомпилированные бинарные файлы
+x64/
+x86/
+*.dll
+*.lib
+*.exp
+
+# Visual Studio проектные файлы, которые можно восстановить
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# Игнорируем скомпилированные файлы и папку build
+build/
+
+# Игнорируем настройки VS Code
+.vscode/
+
+# Игнорируем временные файлы и логи
+*.log
+*.out
+*.o
+*.exe
+*.dll
