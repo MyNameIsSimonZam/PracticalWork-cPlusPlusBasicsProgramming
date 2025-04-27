@@ -142,8 +142,6 @@ void task2() {
   std::cin.ignore();
   std::getline(std::cin, mail);
 
-  std::string message = (findAt(mail) && checkFirstMailPart(findFirstMailPart(mail))
-    && checkSecondMailPart(findSecondMailPart(mail))) ? "Yes" : "No";
-
-  std::cout << message << "\n";
+  std::cout << (findAt(mail) && checkFirstMailPart(findFirstMailPart(mail))
+    && checkSecondMailPart(findSecondMailPart(mail)) ? "Yes" : "No") << "\n";
 }
