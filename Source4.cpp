@@ -71,7 +71,7 @@ X.O
 — на поле есть невалидные символы.
 
 Для упрощения лучше создать отдельные функции для проверки победителя в строке или столбце,
-которые на вход принимают строку, а на выходе выдают символ победителя. То есть ‘X’, ‘O’ или ‘.’*/
+которые на вход принимh hjjlllk hnb       g   ggbают строку, а на выходе выдают символ победителя. То есть ‘X’, ‘O’ или ‘.’*/
 
 bool stringValidation(std::string str) {
   if (str.length() != 3) return false;
@@ -83,7 +83,8 @@ bool stringValidation(std::string str) {
   return true;
 }
 
-char giveElements(std::string first, std::string second, std::string third, int x, int y) {
+char giveElement(std::string first, std::string second, 
+  std::string third, int x, int y) {  // возможно тут стоит принимать только одну строку, отправлять строку по x
   if (y == 1) return first[x + 1];
   if (y == 2) return second[x + 1];
   if (y == 3) return third[x + 1];
@@ -91,8 +92,45 @@ char giveElements(std::string first, std::string second, std::string third, int 
   return '?';
 }
 
+char searchWinInString(std::string str){
+  int countO = 0;
+  int countX = 0;
 
+  for (int i = 0; i < str.length(); ++i){
+    if (str[i] == 'X') countX++;
+    if (str[i] == 'O') countO++;
+  }
+  if (countX == 3) return 'X';
+  if (countO == 3) return 'O';
+  return '?';
+}
 
 void task4() {
+  std::string test = "XXX";
+  std::string test1 = "OOO";
+  std::string test2 = "X..";
+  std::string test3 = "OXO";
+  std::string test4 = ".OO";
+  std::string test5 = ".X.";
+  std::string test6 = "X.OO";
+  std::string test7 = "0..";
+
+  std::cout << searchWinInString(test) << "\n";
+  std::cout << searchWinInString(test1) << "\n";
+  std::cout << searchWinInString(test2) << "\n";
+  std::cout << searchWinInString(test3) << "\n";
+  std::cout << searchWinInString(test4) << "\n";
+  std::cout << searchWinInString(test5) << "\n";
+  std::cout << searchWinInString(test6) << "\n";
+  std::cout << searchWinInString(test7) << "\n";
+
+  std::cout << stringValidation(test) << "\n";
+  std::cout << stringValidation(test1) << "\n";
+  std::cout << stringValidation(test2) << "\n";
+  std::cout << stringValidation(test3) << "\n";
+  std::cout << stringValidation(test4) << "\n";
+  std::cout << stringValidation(test5) << "\n";
+  std::cout << stringValidation(test6) << "\n";
+  std::cout << stringValidation(test7) << "\n";
 
 }

@@ -48,3 +48,4 @@ build/
 *.o
 *.exe
 *.dll
+*/program
