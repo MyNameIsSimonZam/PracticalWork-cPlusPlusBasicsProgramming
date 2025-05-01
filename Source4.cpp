@@ -167,7 +167,7 @@ bool doubleWinner(std::string first, std::string second,
     if (rowWinner == 'X' || rowWinner == 'O') return false;
   }
   if (diagonalWinner == colomnWinner) {
-    if (diagonalWinner != 'X' || diagonalWinner == 'O') return false;
+    if (diagonalWinner == 'X' || diagonalWinner == 'O') return false;
   }
   return true;
 }
@@ -201,10 +201,10 @@ int countX(std::string first, std::string second,
     if (first[i] == 'X') ++result;
   }
   for (int i = 0; i < second.length(); ++i) {
-    if (first[i] == 'X') ++result;
+    if (second[i] == 'X') ++result;
   }
   for (int i = 0; i < third.length(); ++i) {
-    if (first[i] == 'X') ++result;
+    if (third[i] == 'X') ++result;
   }
 
   return result;
@@ -218,65 +218,83 @@ int countO(std::string first, std::string second,
     if (first[i] == 'O') ++result;
   }
   for (int i = 0; i < second.length(); ++i) {
-    if (first[i] == 'O') ++result;
+    if (second[i] == 'O') ++result;
   }
   for (int i = 0; i < third.length(); ++i) {
-    if (first[i] == 'O') ++result;
+    if (third[i] == 'O') ++result;
   }
 
   return result;
 }
 
-int countDot(std::string first, std::string second,
-  std::string third) {
-  int result = 0;
-
-  for (int i = 0; i < first.length(); ++i) {
-    if (first[i] == '.') ++result;
-  }
-  for (int i = 0; i < second.length(); ++i) {
-    if (first[i] == '.') ++result;
-  }
-  for (int i = 0; i < third.length(); ++i) {
-    if (first[i] == '.') ++result;
-  }
-
-  return result;
-}
+//int countDot(std::string first, std::string second,
+//  std::string third) {
+//  int result = 0;
+//
+//  for (int i = 0; i < first.length(); ++i) {
+//    if (first[i] == '.') ++result;
+//  }
+//  for (int i = 0; i < second.length(); ++i) {
+//    if (second[i] == '.') ++result;
+//  }
+//  for (int i = 0; i < third.length(); ++i) {
+//    if (third[i] == '.') ++result;
+//  }
+//
+//  return result;
+//}
 
 char searchWinner(std::string first, std::string second,
   std::string third) {
 
   if (searchWinInRow(first, second, third) == 'X') {
-    if (countX(first, second, third) == countO(first, second, third) - 1) {
+    if (countX(first, second, third) - 1 == countO(first, second, third)) {
       return 'X';
+    }
+    else {
+      return '?';
     }
   }
   if (searchWinInRow(first, second, third) == 'O') {
     if (countX(first, second, third) == countO(first, second, third)) {
       return 'O';
     }
+    else {
+      return '?';
+    }
   }
 
   if (searchWinInColomn(first, second, third) == 'X') {
-    if (countX(first, second, third) == countO(first, second, third) - 1) {
+    if (countX(first, second, third) - 1 == countO(first, second, third)) {
       return 'X';
+    }
+    else {
+      return '?';
     }
   }
   if (searchWinInColomn(first, second, third) == 'O') {
     if (countX(first, second, third) == countO(first, second, third)) {
       return 'O';
     }
+    else {
+      return '?';
+    }
   }
 
   if (searchWinInDiagonal(first, second, third) == 'X') {
-    if (countX(first, second, third) == countO(first, second, third) - 1) {
+    if (countX(first, second, third) - 1 == countO(first, second, third)) {
       return 'X';
+    }
+    else {
+      return '?';
     }
   }
   if (searchWinInDiagonal(first, second, third) == 'O') {
     if (countX(first, second, third) == countO(first, second, third)) {
       return 'O';
+    }
+    else {
+      return '?';
     }
   }
   return '.';
@@ -284,6 +302,11 @@ char searchWinner(std::string first, std::string second,
 
 bool incorrectFounder(std::string first, std::string second,
   std::string third) {
+
+  // there is a check on count X and O if its win
+  if (searchWinner(first, second, third) == '?') {
+    return false;
+  }
 
   // there was fined error in row or colomn
   if (searchWinInRow(first, second, third) == '?' ||
@@ -298,8 +321,9 @@ bool incorrectFounder(std::string first, std::string second,
   }
 
   // X have to be more then O jasn on 1, or they have to be equal
-  if (countX(first, second, third) != countO(first, second, third) ||
-    (countX(first, second, third) - 1) != countO(first, second, third)) {
+  int intCountX = countX(first, second, third);
+  int intCountO = countO(first, second, third);
+  if ((intCountX != intCountO) && (intCountO != intCountX - 1)) {
     return false;
   }
 
@@ -307,56 +331,31 @@ bool incorrectFounder(std::string first, std::string second,
 }
 
 void task4() {
-  std::string test = "..X";
-  std::string test1 = "OX.";
-  std::string test2 = "X.O";
-  //std::string test = "X..";
-  //std::string test1 = ".X.";
-  //std::string test2 = "OO.";
+  std::string firstRow;
+  std::string secondRow;
+  std::string thirdRow;
 
-  if (!incorrectFounder(test, test1, test2)) {
+  std::cout << "Insert a first row: \t";
+  std::cin.ignore();
+  std::getline(std::cin, firstRow);
+  std::cout << "Insert a second row: \t";
+  std::cin.ignore();
+  std::getline(std::cin, secondRow);
+  std::cout << "Insert a third row: \t";
+  std::cin.ignore();
+  std::getline(std::cin, thirdRow);
+
+
+  if (!incorrectFounder(firstRow, secondRow, thirdRow)) {
     std::cout << "Incorrect\n";
   }
-  else if (searchWinner(test, test1, test2) == 'X') {
+  else if (searchWinner(firstRow, secondRow, thirdRow) == 'X') {
     std::cout << "Petya won\n";
   }
-  else if (searchWinner(test, test1, test2) == 'O') {
+  else if (searchWinner(firstRow, secondRow, thirdRow) == 'O') {
     std::cout << "Vasya won\n";
   }
-  else if (searchWinner(test, test1, test2) == '.') {
+  else if (searchWinner(firstRow, secondRow, thirdRow) == '.') {
     std::cout << "Nobody\n";
   }
-
 }
-
-/*Примеры
-X..
-OXO
-OOO
-Ответ : Incorrect(потому что ноликов в конце игры не может быть больше, чем крестиков).
-X..
-.X.
-OO.
-Ответ : Nobody(потому что они не доиграли).
-XXO
-OOX
-XOX
-Ответ : Nobody(потому что это ничья).
-XO.
-XO.
-X.O
-Ответ : Incorrect(крестики уже победили, и ноликов не может быть столько же).
-OX.
-XOX
-X.O
-Ответ : Incorrect(потому что нолики выиграли за три хода,
-  и на поле за это время не могло успеть появиться четыре крестика).
-  ..X
-  OX.
-  X.O
-  Ответ : Petya won.
-  0..
-  ...
-  ...
-  Ответ : Incorrect(потому что допускаются только символы X, O и точка,
-    а цифра 0 не является допустимым символом).               */
